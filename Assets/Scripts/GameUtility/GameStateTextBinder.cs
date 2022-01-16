@@ -40,6 +40,8 @@ namespace GoogleTrends.GameUtility
                     return "Compare";
                 case GameState.ShowGameResults:
                     return "Game Over";
+                case GameState.WaitForGameStart:
+                    return "Welcome";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
             }
