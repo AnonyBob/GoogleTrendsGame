@@ -28,6 +28,9 @@ namespace GoogleTrends.GameUtility
 
         [SerializeField]
         private int _resetValue;
+
+        [SerializeField]
+        private bool _capBarSizeAtMax;
         
         [SerializeField]
         private NumberRollUpLogic _logic;
@@ -71,6 +74,11 @@ namespace GoogleTrends.GameUtility
         private void SetSize(float currentNumber)
         {
             var ratio = currentNumber / _maxNumberSize;
+            if (ratio > 1 && _capBarSizeAtMax)
+            {
+                ratio = 1;
+            }
+            
             var finalSize = ratio * _maxBarSize;
             
             var size = _image.rectTransform.sizeDelta;

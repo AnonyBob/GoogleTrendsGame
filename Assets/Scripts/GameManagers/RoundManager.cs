@@ -182,7 +182,9 @@ namespace GoogleTrends.GameManagers
                 if (_teams.Value != null && _teams.Value.Count > i)
                 {
                     var roundScore = _scoresProcessor.Results[i];
+                    //Set both here because we want to initialize the final round score before multiplying it.
                     _teams.Value[i].GetMutable<int>(DetailNames.RoundScore).SetValue(roundScore);
+                    _teams.Value[i].GetMutable<int>(DetailNames.FinalRoundScore).SetValue(roundScore);
                 }
             }
 
@@ -191,7 +193,7 @@ namespace GoogleTrends.GameManagers
 
         private IEnumerator ApplyRoundBonuses()
         {
-            var multiplier = _currentTerm.Value.GetDetail<float>(DetailNames.Multiplier).GetValue();
+            var multiplier = _currentTerm.Value.GetDetail<int>(DetailNames.Multiplier).GetValue();
             var bonusTerm = _currentTerm.Value.GetDetail<string>(DetailNames.BonusTerm).GetValue();
             var bonusTermPoints = _currentTerm.Value.GetDetail<int>(DetailNames.BonusTermPoints).GetValue();
             
@@ -213,14 +215,14 @@ namespace GoogleTrends.GameManagers
                 if (!string.IsNullOrEmpty(bonusTerm))
                 {
                     var currentTermText = _teams.Value[i].GetDetail<string>(DetailNames.CurrentTerm).GetValue();
-                    if (bonusTerm.ToLower().Equals(currentTermText.ToLower()))
+                    if (currentTermText.ToLower().Contains(bonusTerm.ToLower()))
                     {
                         roundScore += bonusTermPoints;
                         _teams.Value[i].GetMutable<bool>(DetailNames.GotBonusTerm).SetValue(true);
                     }
                 }
 
-                roundScoreDetail.SetValue(roundScore);
+                _teams.Value[i].GetMutable<int>(DetailNames.FinalRoundScore).SetValue(roundScore);
             }
         }
 
@@ -269,7 +271,7 @@ namespace GoogleTrends.GameManagers
         private void UpdateScores(IReference team)
         {
             var score = team.GetMutable<int>(DetailNames.Score);
-            var roundScore = team.GetMutable<int>(DetailNames.RoundScore);
+            var roundScore = team.GetMutable<int>(DetailNames.FinalRoundScore);
 
             score.SetValue(score.GetValue() + roundScore.GetValue());
             roundScore.SetValue(0);
@@ -282,6 +284,8 @@ namespace GoogleTrends.GameManagers
 
             team.GetMutable<string>(DetailNames.CurrentTerm).SetValue("");
             team.GetMutable<bool>(DetailNames.GotBonusTerm).SetValue(false);
+            team.GetMutable<int>(DetailNames.RoundScore).SetValue(0);
+            team.GetMutable<int>(DetailNames.FinalRoundScore).SetValue(0);
         }
 
         private IEnumerable<IDetail> ConstructEnteredTerm(IReference team)
@@ -290,7 +294,7 @@ namespace GoogleTrends.GameManagers
                 team.GetDetail<string>(DetailNames.CurrentTerm).GetValue());
             
             yield return new BaseDetail<int>(DetailNames.RoundScore,
-                team.GetDetail<int>(DetailNames.RoundScore).GetValue());
+                team.GetDetail<int>(DetailNames.FinalRoundScore).GetValue());
             
             yield return new BaseDetail<bool>(DetailNames.GotBonusTerm,
                 team.GetDetail<bool>(DetailNames.GotBonusTerm).GetValue());

@@ -437,11 +437,7 @@ MonoBehaviour:
       _stringValue: 
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    _collectionDetails:
-    - _name: Terms
-      _type: 6
-      _enumId: 0
-      _collection: []
+    _collectionDetails: []
     _mapDetails: []
 --- !u!114 &3555036592647690020
 MonoBehaviour:

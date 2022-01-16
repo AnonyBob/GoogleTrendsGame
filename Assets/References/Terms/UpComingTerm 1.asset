@@ -10,62 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 308a0fcb92eb4130aea54ffbe7361354, type: 3}
-  m_Name: BlueTeam
+  m_Name: UpComingTerm 1
   m_EditorClassIdentifier: 
   Reference:
     _details:
-    - _name: Name
+    - _name: TermText
       _type: 6
       _enumId: 0
       _value: 0
-      _stringValue: Blue Team
+      _stringValue: End
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    - _name: CurrentTerm
+    - _name: BonusTerm
       _type: 6
       _enumId: 0
       _value: 0
-      _stringValue: One Fish
+      _stringValue: Game
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    - _name: Color
-      _type: 10
-      _enumId: 0
-      _value: 0
-      _stringValue: 
-      _referenceValue: {fileID: 0}
-      _vectorValue: {x: 0.2627451, y: 0.52156866, z: 0.95686275, w: 1}
-    - _name: Score
+    - _name: BonusTermPoints
       _type: 1
       _enumId: 0
-      _value: 0.1
+      _value: 100.1
       _stringValue: 
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    - _name: RoundScore
+    - _name: Multiplier
       _type: 1
       _enumId: 0
-      _value: 0.1
+      _value: 1.1
       _stringValue: 
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    - _name: GotBonusTerm
-      _type: 0
-      _enumId: 0
-      _value: 0
-      _stringValue: 
-      _referenceValue: {fileID: 0}
-      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    - _name: FinalRoundScore
-      _type: 1
-      _enumId: 0
-      _value: 0.1
-      _stringValue: 
-      _referenceValue: {fileID: 0}
-      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    _collectionDetails:
-    - _name: Terms
-      _type: 7
-      _enumId: 0
-      _collection: []
+    _collectionDetails: []
     _mapDetails: []

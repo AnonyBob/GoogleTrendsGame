@@ -21,13 +21,6 @@ MonoBehaviour:
       _stringValue: Fish
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    - _name: Multiplier
-      _type: 3
-      _enumId: 0
-      _value: 1
-      _stringValue: 
-      _referenceValue: {fileID: 0}
-      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
     - _name: BonusTerm
       _type: 6
       _enumId: 0
@@ -39,6 +32,13 @@ MonoBehaviour:
       _type: 1
       _enumId: 0
       _value: 0.1
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: Multiplier
+      _type: 1
+      _enumId: 0
+      _value: 1.1
       _stringValue: 
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}

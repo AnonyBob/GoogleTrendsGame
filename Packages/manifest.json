@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.owlandjackalope.ux": "https://github.com/AnonyBob/OwlAndJackalope.UX.git?path=/Assets/OwlAndJackalope.UX",
+    "com.owlandjackalope.ux": "file:F:/OwlAndJackalope/Unity/OJ.UXMachine/Assets/OwlAndJackalope.UX",
     "com.unity.2d.animation": "5.0.6",
     "com.unity.2d.pixel-perfect": "4.0.1",
     "com.unity.2d.psdimporter": "4.1.0",

@@ -17,6 +17,7 @@
         public const string Name = "Name";
         public const string Selected = "Selected";
         public const string RoundScore = "RoundScore";
+        public const string FinalRoundScore = "FinalRoundScore";
         public const string Score = "Score";
         public const string GotBonusTerm = "GotBonusTerm";
         

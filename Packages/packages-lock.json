@@ -1,14 +1,13 @@
 {
   "dependencies": {
     "com.owlandjackalope.ux": {
-      "version": "https://github.com/AnonyBob/OwlAndJackalope.UX.git?path=/Assets/OwlAndJackalope.UX",
+      "version": "file:F:/OwlAndJackalope/Unity/OJ.UXMachine/Assets/OwlAndJackalope.UX",
       "depth": 0,
-      "source": "git",
+      "source": "local",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
         "com.unity.textmeshpro": "3.0.6"
-      },
-      "hash": "dfc0917a65d2aee4708cfd8fd675f8a88a8e69bf"
+      }
     },
     "com.unity.2d.animation": {
       "version": "5.0.6",
