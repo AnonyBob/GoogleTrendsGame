@@ -22,7 +22,7 @@ MonoBehaviour:
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
     - _name: CurrentTerm
-      _type: 6
+      _type: 7
       _enumId: 0
       _value: 0
       _stringValue: 
@@ -42,32 +42,28 @@ MonoBehaviour:
       _stringValue: 
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    _collectionDetails:
-    - _name: Terms
+    - _name: TimerMax
+      _type: 1
+      _enumId: 20
+      _value: 60.1
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: DateRange
       _type: 6
-      _enumId: 0
-      _collection:
-      - _name: 
-        _type: 6
-        _enumId: 0
-        _value: 0
-        _stringValue: Fish
-        _referenceValue: {fileID: 0}
-        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-      - _name: 
-        _type: 6
-        _enumId: 0
-        _value: 0
-        _stringValue: Balloon
-        _referenceValue: {fileID: 0}
-        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
-      - _name: 
-        _type: 6
-        _enumId: 0
-        _value: 0
-        _stringValue: Bicycle
-        _referenceValue: {fileID: 0}
-        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _enumId: 20
+      _value: 0
+      _stringValue: 12-m
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: GeoLocation
+      _type: 6
+      _enumId: 20
+      _value: 0
+      _stringValue: US
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    _collectionDetails:
     - _name: Teams
       _type: 7
       _enumId: 0
@@ -99,5 +95,16 @@ MonoBehaviour:
         _value: 0
         _stringValue: 
         _referenceValue: {fileID: 11400000, guid: 4bb6582383e9480439573854e6f2bbe3, type: 2}
+        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: Terms
+      _type: 7
+      _enumId: 0
+      _collection:
+      - _name: 
+        _type: 7
+        _enumId: 0
+        _value: 0
+        _stringValue: 
+        _referenceValue: {fileID: 11400000, guid: 2af042fbf1bc14c4491b6d3f5680fc72, type: 2}
         _vectorValue: {x: 0, y: 0, z: 0, w: 0}
     _mapDetails: []

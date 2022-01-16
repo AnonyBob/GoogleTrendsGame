@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 308a0fcb92eb4130aea54ffbe7361354, type: 3}
-  m_Name: BlueTeam
+  m_Name: GreenTeam
   m_EditorClassIdentifier: 
   Reference:
     _details:
@@ -18,14 +18,14 @@ MonoBehaviour:
       _type: 6
       _enumId: 0
       _value: 0
-      _stringValue: Blue Team
+      _stringValue: Green Team
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
     - _name: CurrentTerm
       _type: 6
       _enumId: 0
       _value: 0
-      _stringValue: One Fish
+      _stringValue: 
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
     - _name: Color
@@ -34,7 +34,7 @@ MonoBehaviour:
       _value: 0
       _stringValue: 
       _referenceValue: {fileID: 0}
-      _vectorValue: {x: 0.2627451, y: 0.52156866, z: 0.95686275, w: 1}
+      _vectorValue: {x: 0.21568628, y: 0.6627451, z: 0.34117648, w: 1}
     - _name: Score
       _type: 1
       _enumId: 0
@@ -49,9 +49,16 @@ MonoBehaviour:
       _stringValue: 
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: GotBonusTerm
+      _type: 0
+      _enumId: 0
+      _value: 0
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
     _collectionDetails:
     - _name: Terms
-      _type: 6
+      _type: 7
       _enumId: 0
       _collection: []
     _mapDetails: []

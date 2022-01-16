@@ -2,7 +2,7 @@
 using OwlAndJackalope.UX.Runtime.Data;
 using OwlAndJackalope.UX.Runtime.Modules;
 
-namespace GoogleTrends.Round
+namespace GoogleTrends.GameManagers
 {
     public class GameManager : ReferenceProvider
     {
@@ -16,13 +16,14 @@ namespace GoogleTrends.Round
         private IEnumerable<IDetail> CreateDetails()
         {
             yield return new BaseDetail<int>(DetailNames.RoundNumber, 0);
-            yield return new BaseDetail<string>(DetailNames.CurrentTerm, "");
+            yield return new BaseDetail<IReference>(DetailNames.CurrentTerm, null);
             yield return new BaseDetail<IReference>(DetailNames.WinningTeam, null);
             
             yield return new BaseDetail<GameState>(DetailNames.GameState, GameState.MainMenu);
             yield return new BaseDetail<int>(DetailNames.TimerMax, 60);
+            yield return new BaseDetail<bool>(DetailNames.SetTeamNamesOnFirstRound, true);
             
-            yield return new BaseCollectionDetail<string>(DetailNames.Terms, new List<string>(), false);
+            yield return new BaseCollectionDetail<IReference>(DetailNames.Terms, new List<IReference>(), false);
             yield return new BaseCollectionDetail<IReference>(DetailNames.Teams, new List<IReference>(), false);
         }
 

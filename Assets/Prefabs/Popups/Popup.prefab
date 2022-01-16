@@ -197,6 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1239763719467264355}
   - component: {fileID: 1239763719467264354}
+  - component: {fileID: 85563479}
   m_Layer: 5
   m_Name: Popup
   m_TagString: Untagged
@@ -237,6 +238,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937add794bad4c09b35071d41ba930fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &85563479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239763719467264364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51805350ccc841f285be7f94d30b7875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _popupRoot: {fileID: 1239763719467264364}
+  _onPopupClose:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1239763719467264354}
+        m_TargetAssemblyTypeName: GoogleTrends.UI.UIDestroy, Assembly-CSharp
+        m_MethodName: Destroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1239763719720867746
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +522,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2754312850384770637, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
       propertyPath: m_Name
-      value: PlusOneButton
+      value: CloseButton
       objectReference: {fileID: 0}
     - target: {fileID: 3595517452255860728, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
       propertyPath: m_text
@@ -598,18 +627,18 @@ PrefabInstance:
     - target: {fileID: 8248456220207261358, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1239763719467264354}
+      objectReference: {fileID: 85563479}
     - target: {fileID: 8248456220207261358, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8248456220207261358, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Destroy
+      value: ClosePopup
       objectReference: {fileID: 0}
     - target: {fileID: 8248456220207261358, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GoogleTrends.UI.UIDestroy, Assembly-CSharp
+      value: GoogleTrends.UI.Popups.PopupCloser, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8248456220207261358, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument

@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
 using GoogleTrends.SendScores;
 using OwlAndJackalope.UX.Runtime.Data;
 using OwlAndJackalope.UX.Runtime.Data.Extensions;
@@ -9,21 +9,25 @@ using OwlAndJackalope.UX.Runtime.Modules;
 using OwlAndJackalope.UX.Runtime.Observers;
 using UnityEngine;
 
-namespace GoogleTrends.Round
+namespace GoogleTrends.GameManagers
 {
     public class RoundManager : MonoBehaviour
     {
         [SerializeField]
         private ReferenceModule _gameReference;
 
+        [SerializeField]
+        private float _bonusTermWaitTime;
+        
         private readonly ScoresProcessor _scoresProcessor = new ScoresProcessor();
         
         private DetailObserver<List<IReference>> _teams;
         private MutableDetailObserver<bool> _waitingForScores;
         private MutableDetailObserver<GameState> _gameState;
         private MutableDetailObserver<int> _roundNumber;
-        private MutableDetailObserver<string> _currentTerm;
-        private DetailObserver<List<string>> _gameTerms;
+        private MutableDetailObserver<IReference> _currentTerm;
+        private DetailObserver<List<IReference>> _gameTerms;
+        private DetailObserver<bool> _setTeamNamesOnFirstRound;
 
         private MutableDetailObserver<int> _timer;
         private MutableDetailObserver<bool> _waitingForTimer;
@@ -39,10 +43,10 @@ namespace GoogleTrends.Round
             _gameState = new MutableDetailObserver<GameState>() { DetailName = DetailNames.GameState };
             _gameState.Initialize(_gameReference.Reference);
             
-            _currentTerm = new MutableDetailObserver<string>() { DetailName = DetailNames.CurrentTerm };
+            _currentTerm = new MutableDetailObserver<IReference>() { DetailName = DetailNames.CurrentTerm };
             _currentTerm.Initialize(_gameReference.Reference);
             
-            _gameTerms = new DetailObserver<List<string>>() { DetailName = DetailNames.Terms };
+            _gameTerms = new DetailObserver<List<IReference>>() { DetailName = DetailNames.Terms };
             _gameTerms.Initialize(_gameReference.Reference);
             
             _roundNumber = new MutableDetailObserver<int>() { DetailName = DetailNames.RoundNumber };
@@ -50,6 +54,9 @@ namespace GoogleTrends.Round
 
             _waitingForScores = new MutableDetailObserver<bool>() { DetailName = DetailNames.WaitingForScores};
             _waitingForScores.Initialize(_gameReference.Reference);
+            
+            _setTeamNamesOnFirstRound = new DetailObserver<bool>() { DetailName = DetailNames.SetTeamNamesOnFirstRound };
+            _setTeamNamesOnFirstRound.Initialize(_gameReference.Reference);
 
             _timer = new MutableDetailObserver<int>() { DetailName = DetailNames.Timer };
             _timer.Initialize(_gameReference.Reference);
@@ -60,7 +67,21 @@ namespace GoogleTrends.Round
             _timerMax = new DetailObserver<int>() { DetailName = DetailNames.TimerMax };
             _timerMax.Initialize(_gameReference.Reference);
         }
-        
+
+        private void OnDestroy()
+        {
+            _teams?.Dispose();
+            _gameState?.Dispose();
+            _currentTerm?.Dispose();
+            _gameTerms?.Dispose();
+            _roundNumber?.Dispose();
+            _waitingForScores?.Dispose();
+            _setTeamNamesOnFirstRound?.Dispose();
+            _timer?.Dispose();
+            _waitingForTimer?.Dispose();
+            _timerMax?.Dispose();
+        }
+
         public void SubmitTerms()
         {
             StartCoroutine(DoSubmitTerms());
@@ -76,8 +97,7 @@ namespace GoogleTrends.Round
             var currentTerm = _currentTerm.Value;
             foreach (var team in _teams.Value)
             {
-                
-                if (_roundNumber.Value == 1)
+                if (_roundNumber.Value == 1 && _setTeamNamesOnFirstRound.Value)
                 {
                     SetTeamName(team, currentTerm);    
                 }
@@ -130,6 +150,7 @@ namespace GoogleTrends.Round
             else
             {
                 ShowResults();
+                yield return ApplyRoundBonuses();
             }
             
             _waitingForScores.Value = false;
@@ -168,6 +189,41 @@ namespace GoogleTrends.Round
             _gameState.Value = GameState.ShowRoundResults;
         }
 
+        private IEnumerator ApplyRoundBonuses()
+        {
+            var multiplier = _currentTerm.Value.GetDetail<float>(DetailNames.Multiplier).GetValue();
+            var bonusTerm = _currentTerm.Value.GetDetail<string>(DetailNames.BonusTerm).GetValue();
+            var bonusTermPoints = _currentTerm.Value.GetDetail<int>(DetailNames.BonusTermPoints).GetValue();
+            
+            if (multiplier > 1 || !string.IsNullOrEmpty(bonusTerm))
+            {
+                yield return new WaitForSeconds(_bonusTermWaitTime);
+            }
+            
+            for (var i = 0; i < _teams.Value.Count; ++i)
+            {
+                var roundScoreDetail = _teams.Value[i].GetMutable<int>(DetailNames.RoundScore);
+                var roundScore = roundScoreDetail.GetValue();
+
+                if (multiplier > 1)
+                {
+                    roundScore = Mathf.RoundToInt(roundScore * multiplier);
+                }
+
+                if (!string.IsNullOrEmpty(bonusTerm))
+                {
+                    var currentTermText = _teams.Value[i].GetDetail<string>(DetailNames.CurrentTerm).GetValue();
+                    if (bonusTerm.ToLower().Equals(currentTermText.ToLower()))
+                    {
+                        roundScore += bonusTermPoints;
+                        _teams.Value[i].GetMutable<bool>(DetailNames.GotBonusTerm).SetValue(true);
+                    }
+                }
+
+                roundScoreDetail.SetValue(roundScore);
+            }
+        }
+
         private void MoveToNextRoundOrEndGame()
         {
             var nextIndex = _roundNumber.Value;
@@ -187,12 +243,13 @@ namespace GoogleTrends.Round
             }
         }
         
-        private void SetTeamName(IReference team, string currentTerm)
+        private void SetTeamName(IReference team, IReference currentTerm)
         {
+            var currentTermText = currentTerm.GetDetail<string>(DetailNames.TermText).GetValue();
             var teamName = team.GetMutable<string>(DetailNames.Name);
             var teamTerm = team.GetDetail<string>(DetailNames.CurrentTerm);
 
-            var newName = teamTerm.GetValue().Replace(currentTerm, "").Trim();
+            var newName = teamTerm.GetValue().Replace(currentTermText, "").Trim();
             teamName.SetValue($"Team {newName}");
         }
 
@@ -220,11 +277,23 @@ namespace GoogleTrends.Round
 
         private void ClearTerms(IReference team)
         {
-            var teamTerm = team.GetMutable<string>(DetailNames.CurrentTerm);
-            var previousTerms = team.GetMutableCollection<string>(DetailNames.Terms);
-            previousTerms.Add(teamTerm.GetValue());
+            var previousTerms = team.GetMutableCollection<IReference>(DetailNames.Terms);
+            previousTerms.Add(new BaseReference(ConstructEnteredTerm(team)));
+
+            team.GetMutable<string>(DetailNames.CurrentTerm).SetValue("");
+            team.GetMutable<bool>(DetailNames.GotBonusTerm).SetValue(false);
+        }
+
+        private IEnumerable<IDetail> ConstructEnteredTerm(IReference team)
+        {
+            yield return new BaseDetail<string>(DetailNames.TermText,
+                team.GetDetail<string>(DetailNames.CurrentTerm).GetValue());
             
-            teamTerm.SetValue(string.Empty);
+            yield return new BaseDetail<int>(DetailNames.RoundScore,
+                team.GetDetail<int>(DetailNames.RoundScore).GetValue());
+            
+            yield return new BaseDetail<bool>(DetailNames.GotBonusTerm,
+                team.GetDetail<bool>(DetailNames.GotBonusTerm).GetValue());
         }
     }
 }
