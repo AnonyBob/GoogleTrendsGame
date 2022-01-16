@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 308a0fcb92eb4130aea54ffbe7361354, type: 3}
+  m_Name: RedTeam
+  m_EditorClassIdentifier: 
+  Reference:
+    _details:
+    - _name: Name
+      _type: 6
+      _enumId: 0
+      _value: 0
+      _stringValue: Red Team
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: CurrentTerm
+      _type: 6
+      _enumId: 0
+      _value: 0
+      _stringValue: Two Fish
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: Color
+      _type: 10
+      _enumId: 0
+      _value: 0
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0.92156863, y: 0.25882354, z: 0.21176471, w: 1}
+    - _name: Score
+      _type: 1
+      _enumId: 0
+      _value: 0.1
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: RoundScore
+      _type: 1
+      _enumId: 0
+      _value: 0.1
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    _collectionDetails:
+    - _name: Terms
+      _type: 6
+      _enumId: 0
+      _collection: []
+    _mapDetails: []

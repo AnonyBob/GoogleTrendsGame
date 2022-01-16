@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 308a0fcb92eb4130aea54ffbe7361354, type: 3}
+  m_Name: CurrentGame
+  m_EditorClassIdentifier: 
+  Reference:
+    _details:
+    - _name: RoundNumber
+      _type: 1
+      _enumId: 0
+      _value: 0.1
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: CurrentTerm
+      _type: 6
+      _enumId: 0
+      _value: 0
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: WinningTeam
+      _type: 7
+      _enumId: 0
+      _value: 0
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: GameState
+      _type: 5
+      _enumId: 20
+      _value: 0.1
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    _collectionDetails:
+    - _name: Terms
+      _type: 6
+      _enumId: 0
+      _collection:
+      - _name: 
+        _type: 6
+        _enumId: 0
+        _value: 0
+        _stringValue: Fish
+        _referenceValue: {fileID: 0}
+        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      - _name: 
+        _type: 6
+        _enumId: 0
+        _value: 0
+        _stringValue: Balloon
+        _referenceValue: {fileID: 0}
+        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      - _name: 
+        _type: 6
+        _enumId: 0
+        _value: 0
+        _stringValue: Bicycle
+        _referenceValue: {fileID: 0}
+        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: Teams
+      _type: 7
+      _enumId: 0
+      _collection:
+      - _name: 
+        _type: 7
+        _enumId: 0
+        _value: 0
+        _stringValue: 
+        _referenceValue: {fileID: 11400000, guid: 445bed93168068a4f8770513b313a9ec, type: 2}
+        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      - _name: 
+        _type: 7
+        _enumId: 0
+        _value: 0
+        _stringValue: 
+        _referenceValue: {fileID: 11400000, guid: 4f638dd10a5d4d549bebc81c5cfb7a66, type: 2}
+        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      - _name: 
+        _type: 7
+        _enumId: 0
+        _value: 0
+        _stringValue: 
+        _referenceValue: {fileID: 11400000, guid: 951dbbeff408e6149b51edb884ddb8f6, type: 2}
+        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      - _name: 
+        _type: 7
+        _enumId: 0
+        _value: 0
+        _stringValue: 
+        _referenceValue: {fileID: 11400000, guid: 4bb6582383e9480439573854e6f2bbe3, type: 2}
+        _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    _mapDetails: []
