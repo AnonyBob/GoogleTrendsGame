@@ -63,6 +63,13 @@ MonoBehaviour:
       _stringValue: US
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    - _name: SetTeamNamesOnFirstRound
+      _type: 0
+      _enumId: 20
+      _value: 1
+      _stringValue: 
+      _referenceValue: {fileID: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
     _collectionDetails:
     - _name: Teams
       _type: 7

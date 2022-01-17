@@ -20,6 +20,7 @@
         public const string FinalRoundScore = "FinalRoundScore";
         public const string Score = "Score";
         public const string GotBonusTerm = "GotBonusTerm";
+        public const string ShowCurrentTerm = "ShowCurrentTerm";
         
         //Round Related Details
         public const string Timer = "Timer";

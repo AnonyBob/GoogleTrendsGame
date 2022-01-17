@@ -3,6 +3,7 @@ using System.Linq;
 using OwlAndJackalope.UX.Runtime.Data;
 using OwlAndJackalope.UX.Runtime.Data.Extensions;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GoogleTrends.GameUtility.Selection
 {
@@ -17,6 +18,9 @@ namespace GoogleTrends.GameUtility.Selection
 
         [SerializeField]
         private bool _allowDeselect = true;
+
+        [SerializeField]
+        private UnityEvent _selectionChanged;
         
         private readonly List<IReference> _options = new List<IReference>();
         
@@ -26,48 +30,46 @@ namespace GoogleTrends.GameUtility.Selection
             selected.SetValue(true);
 
             EntireSelection.Add(selection);
-            if (_numSelectable < 2)
-            {
-                foreach (var option in _options)
-                {
-                    if (option == selection)
-                    {
-                        continue;
-                    }
-
-                    option.GetMutable<bool>(DetailNames.Selected).SetValue(false);
-                }
-            }
-            else if (EntireSelection.Count > _numSelectable)
+            if (EntireSelection.Count > _numSelectable)
             {
                 for (var i = 0; i < EntireSelection.Count; ++i)
                 {
-                    Deselect(EntireSelection[i--]);
+                    InternalDeselect(EntireSelection[i--]);
                     if (_numSelectable >= EntireSelection.Count)
                     {
                         break;
                     }
                 }
             }
+            
+            _selectionChanged?.Invoke();
         }
 
         public void Deselect(IReference reference, bool force = false)
         {
             if (_allowDeselect || force)
             {
-                var selected = reference.GetMutable<bool>(DetailNames.Selected);
-                selected.SetValue(false);
-
-                EntireSelection.Remove(reference);
+                InternalDeselect(reference);
+                _selectionChanged?.Invoke();
             }
+        }
+
+        private void InternalDeselect(IReference reference)
+        {
+            var selected = reference.GetMutable<bool>(DetailNames.Selected);
+            selected.SetValue(false);
+            
+            EntireSelection.Remove(reference);
         }
 
         public void DeselectAll()
         {
             foreach (var option in _options)
             {
-                Deselect(option, true);
+                InternalDeselect(option);
             }
+            
+            _selectionChanged?.Invoke();
         }
 
         public void Register(IReference option)
@@ -78,7 +80,10 @@ namespace GoogleTrends.GameUtility.Selection
         public void Unregister(IReference option)
         {
             _options.Remove(option);
-            EntireSelection.Remove(option);
+            if (EntireSelection.Remove(option))
+            {
+                _selectionChanged?.Invoke();
+            }
         }
     }
 }

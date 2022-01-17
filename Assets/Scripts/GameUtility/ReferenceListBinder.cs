@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OwlAndJackalope.UX.Runtime.Data;
 using OwlAndJackalope.UX.Runtime.DetailBinders;
 using OwlAndJackalope.UX.Runtime.Modules;
 using OwlAndJackalope.UX.Runtime.Observers;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace GoogleTrends.GameUtility
 {
@@ -22,14 +24,29 @@ namespace GoogleTrends.GameUtility
         private Transform[] _objectsAtBack;
 
         private readonly List<Transform> _existing = new List<Transform>();
+        private bool _waitingForChange;
         
         private void Start()
         {
             _listObserver.Initialize(_referenceModule.Reference, HandleChange, false);
         }
 
+        private void OnEnable()
+        {
+            if (_waitingForChange)
+            {
+                _waitingForChange = false;
+                HandleChange();
+            }
+        }
+
         private void HandleChange()
         {
+            if (!gameObject.activeInHierarchy)
+            {
+                _waitingForChange = true;
+            }
+            
             foreach (var existing in _existing)
             {
                 Destroy(existing.gameObject);
@@ -48,6 +65,14 @@ namespace GoogleTrends.GameUtility
             {
                 backObject.SetAsLastSibling();
             }
+        }
+
+        public void ChangeListOrder(int oldIndex, int newIndex)
+        {
+            var list = _listObserver.Value;
+            var oldValue = list[oldIndex];
+            list[oldIndex] = list[newIndex];
+            list[newIndex] = oldValue;
         }
 
         protected override IEnumerable<AbstractDetailObserver> GetDetailObservers()
