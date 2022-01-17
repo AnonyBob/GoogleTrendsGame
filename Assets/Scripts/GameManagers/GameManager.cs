@@ -1,40 +1,26 @@
 ﻿using System.Collections.Generic;
 using OwlAndJackalope.UX.Runtime.Data;
-using OwlAndJackalope.UX.Runtime.Modules;
+using OwlAndJackalope.UX.Runtime.Data.Extensions;
 
 namespace GoogleTrends.GameManagers
 {
-    public class GameManager : ReferenceProvider
+    public static class GameManager
     {
-        private IReference _gameReference;
-
-        private void CreateReference()
+        public static void ResetGame(IReference game, IEnumerable<IReference> defaultTeams)
         {
-            _gameReference = new BaseReference(CreateDetails());
-        }
-
-        private IEnumerable<IDetail> CreateDetails()
-        {
-            yield return new BaseDetail<int>(DetailNames.RoundNumber, 0);
-            yield return new BaseDetail<IReference>(DetailNames.CurrentTerm, null);
-            yield return new BaseDetail<IReference>(DetailNames.WinningTeam, null);
+            game.GetMutable<int>(DetailNames.RoundNumber).SetValue(0);
+            game.GetMutable<IReference>(DetailNames.CurrentTerm).SetValue(null);
+            game.GetMutable<IReference>(DetailNames.WinningTeam).SetValue(null);
+            game.GetMutable<GameState>(DetailNames.GameState).SetValue(GameState.MainMenu);
             
-            yield return new BaseDetail<GameState>(DetailNames.GameState, GameState.MainMenu);
-            yield return new BaseDetail<int>(DetailNames.TimerMax, 60);
-            yield return new BaseDetail<bool>(DetailNames.SetTeamNamesOnFirstRound, true);
-            
-            yield return new BaseCollectionDetail<IReference>(DetailNames.Terms, new List<IReference>(), false);
-            yield return new BaseCollectionDetail<IReference>(DetailNames.Teams, new List<IReference>(), false);
-        }
+            game.GetMutableCollection<IReference>(DetailNames.Terms).Clear();
+            var teams = game.GetMutableCollection<IReference>(DetailNames.Teams);
+            teams.Clear();
 
-        public override IEnumerable<IDetail> ProvideReference()
-        {
-            if (_gameReference == null)
+            foreach (var team in defaultTeams)
             {
-                CreateReference();
+                teams.Add(team);    
             }
-
-            return _gameReference;
         }
     }
 }

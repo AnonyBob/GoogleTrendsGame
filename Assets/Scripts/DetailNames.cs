@@ -8,7 +8,7 @@
         public const string Teams = "Teams";
         public const string RoundNumber = "RoundNumber";
         public const string Terms = "Terms";
-        public const string WinningTeam = "Teams";
+        public const string WinningTeam = "WinningTeam";
         public const string DateRange = "DateRange";
         public const string GeoLocation = "GeoLocation";
         public const string SetTeamNamesOnFirstRound = "SetTeamNamesOnFirstRound";

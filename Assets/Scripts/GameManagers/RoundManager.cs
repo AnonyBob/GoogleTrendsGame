@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GoogleTrends.SendScores;
+using GoogleTrends.UI;
 using OwlAndJackalope.UX.Runtime.Data;
 using OwlAndJackalope.UX.Runtime.Data.Extensions;
 using OwlAndJackalope.UX.Runtime.Modules;
@@ -145,7 +146,7 @@ namespace GoogleTrends.GameManagers
 
             if (!string.IsNullOrEmpty(_scoresProcessor.Error))
             {
-                //TODO: Return to the main menu....
+                MainMenuManager.ReturnToMain();
             }
             else
             {
@@ -219,6 +220,12 @@ namespace GoogleTrends.GameManagers
                     {
                         roundScore += bonusTermPoints;
                         _teams.Value[i].GetMutable<bool>(DetailNames.GotBonusTerm).SetValue(true);
+                        
+                        //If the score was less than 100, we want to further grow the bar to max.
+                        if (roundScoreDetail.GetValue() < 100)
+                        {
+                            roundScoreDetail.SetValue(100);
+                        }
                     }
                 }
 

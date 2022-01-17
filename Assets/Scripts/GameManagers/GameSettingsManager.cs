@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using GoogleTrends.UI;
 using OwlAndJackalope.UX.Runtime.Data;
 using OwlAndJackalope.UX.Runtime.Data.Extensions;
+using OwlAndJackalope.UX.Runtime.Data.Serialized;
 using OwlAndJackalope.UX.Runtime.DetailBinders;
 using OwlAndJackalope.UX.Runtime.Observers;
 using UnityEngine;
@@ -11,7 +14,18 @@ namespace GoogleTrends.GameManagers
     {
         private IMutableCollectionDetail<IReference> Terms =>
             _referenceModule.Reference.GetMutableCollection<IReference>(DetailNames.Terms);
+
+        private void Start()
+        {
+            MainMenuManager.ReturnToMain();
+        }
         
+        public void OpenGameSettings()
+        {
+            var gameState = _referenceModule.Reference.GetMutable<GameState>(DetailNames.GameState);
+            gameState.SetValue(GameState.GameSetup);
+        }
+
         public void AddTerm()
         {
             Terms.Add(new BaseReference(
@@ -21,12 +35,14 @@ namespace GoogleTrends.GameManagers
                 new BaseDetail<int>(DetailNames.Multiplier)));
         }
 
-        public void MoveTerm(int oldIndex, int newIndex)
+        public void MoveTermUp()
         {
             var terms = Terms;
-            var newValue = terms[newIndex];
-            terms[newIndex] = terms[oldIndex];
-            terms[oldIndex] = newValue;
+        }
+        
+        public void MoveTermDown()
+        {
+            var terms = Terms;
         }
         
         public void RemoveTerm(int index)
