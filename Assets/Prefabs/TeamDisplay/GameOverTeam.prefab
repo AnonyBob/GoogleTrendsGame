@@ -471,7 +471,7 @@ MonoBehaviour:
   pauseFill: 1
   _number:
     DetailName: Score
-  _maxNumberSize: 300
+  maxNumberSize: 300
   _maxBarSize: 140
   _useHorizontal: 0
   _resetOnEnable: 1
@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 2077142087847806980}
   - component: {fileID: 2077142087847806981}
   - component: {fileID: 6009945932755904013}
+  - component: {fileID: 3575304927601382628}
   m_Layer: 5
   m_Name: GameOverTeam
   m_TagString: Untagged
@@ -724,6 +725,21 @@ MonoBehaviour:
         _type: 1
         _enumId: 0
         _comparisonType: 0
+--- !u!114 &3575304927601382628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077142087847807002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de02d1f718dc43629f35c091ca8a47d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _barRollUp: {fileID: 1799771994873815798}
+  _rollUp: {fileID: 3771510757921844302}
+  _placeAnimation: {fileID: 4685869990467518031}
 --- !u!1 &2447082442301595424
 GameObject:
   m_ObjectHideFlags: 0

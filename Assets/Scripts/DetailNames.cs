@@ -21,6 +21,7 @@
         public const string Score = "Score";
         public const string GotBonusTerm = "GotBonusTerm";
         public const string ShowCurrentTerm = "ShowCurrentTerm";
+        public const string Place = "Place";
         
         //Round Related Details
         public const string Timer = "Timer";

@@ -1,10 +1,13 @@
 ﻿using GoogleTrends.GameUtility;
+using OwlAndJackalope.UX.Runtime.Modules;
 using UnityEngine;
 
 namespace GoogleTrends.Teams
 {
     public class GameOverTeam : MonoBehaviour
     {
+        public int Place => GetComponent<ReferenceModule>().Reference.GetDetail<int>(DetailNames.Place).GetValue();
+        
         [SerializeField]
         private BarSizeRollUpBinder _barRollUp;
         
