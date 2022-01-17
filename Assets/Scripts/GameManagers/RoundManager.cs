@@ -255,8 +255,7 @@ namespace GoogleTrends.GameManagers
             if (_gameTerms.Value.Count <= nextIndex)
             {
                 //End Game.
-                
-                
+                SetPlaces();
                 _gameState.Value = GameState.ShowGameResults;
             }
             else
@@ -317,6 +316,16 @@ namespace GoogleTrends.GameManagers
             foreach (var button in _nextButtons)
             {
                 button.interactable = interactive;
+            }
+        }
+
+        private void SetPlaces()
+        {
+            var place = 0;
+            var teams = _teams.Value.OrderBy(t => t.GetDetail<int>(DetailNames.Score).GetValue());
+            foreach (var team in teams)
+            {
+                team.GetMutable<int>(DetailNames.Place).SetValue(place++);
             }
         }
         

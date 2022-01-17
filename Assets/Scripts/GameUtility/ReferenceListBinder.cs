@@ -21,6 +21,9 @@ namespace GoogleTrends.GameUtility
         private ReferenceModule _prefab;
 
         [SerializeField]
+        private bool _destroyOnDisable;
+
+        [SerializeField]
         private Transform[] _objectsAtBack;
 
         private readonly List<Transform> _existing = new List<Transform>();
@@ -33,10 +36,23 @@ namespace GoogleTrends.GameUtility
 
         private void OnEnable()
         {
-            if (_waitingForChange)
+            if (_waitingForChange || _destroyOnDisable)
             {
                 _waitingForChange = false;
                 HandleChange();
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (_destroyOnDisable)
+            {
+                foreach (var existing in _existing)
+                {
+                    Destroy(existing.gameObject);
+                }
+
+                _existing.Clear();
             }
         }
 
