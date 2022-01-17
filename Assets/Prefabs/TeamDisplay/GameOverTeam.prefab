@@ -243,7 +243,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 2
   m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -479,7 +479,7 @@ MonoBehaviour:
   _capBarSizeAtMax: 1
   _logic:
     _duration: 2
-    _maxDifference: 100
+    _maxDifference: 0
     _formatString: '{0}'
     _numberFormatString: N0
     _setInitialToTarget: 0
@@ -833,7 +833,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
+  m_fontSize: 2
   m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -895,7 +895,7 @@ MonoBehaviour:
   _resetValue: 0
   _logic:
     _duration: 2
-    _maxDifference: 100
+    _maxDifference: 0
     _formatString: '{0} pts'
     _numberFormatString: N0
     _setInitialToTarget: 0

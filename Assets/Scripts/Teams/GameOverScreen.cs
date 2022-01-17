@@ -16,6 +16,9 @@ namespace GoogleTrends.Teams
 
         [SerializeField]
         private float _initialWait = 0.5f;
+
+        [SerializeField]
+        private float _waitBeforeShowPlace = 0.8f;
         
         [SerializeField]
         private float _waitBetweenTeams = 1.2f;
@@ -57,9 +60,10 @@ namespace GoogleTrends.Teams
             foreach (var team in teams.OrderByDescending(t => t.Place))
             {
                 team.StartPointRollUp();
-                yield return new WaitForSeconds(_waitBetweenTeams);
-                
+                yield return new WaitForSeconds(_waitBeforeShowPlace);
                 team.ShowPlace();
+
+                yield return new WaitForSeconds(_waitBetweenTeams);
             }
 
             yield return new WaitForSeconds(_endWait);

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ccb9cd42cc0450db208047a5957901f, type: 3}
+  m_Name: DateRangeOptions
+  m_EditorClassIdentifier: 
+  Options:
+  - DisplayValue: Past 7 days
+    Value: now 7-d
+  - DisplayValue: Past month
+    Value: today 1-m
+  - DisplayValue: Past 3 months
+    Value: today 3-m
+  - DisplayValue: Past 12 months
+    Value: today 12-m
+  - DisplayValue: Past 5 years
+    Value: today 5-y

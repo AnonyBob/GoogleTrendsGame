@@ -25,7 +25,9 @@ namespace GoogleTrends.GameManagers
         private Button[] _nextButtons;
         
         private readonly ScoresProcessor _scoresProcessor = new ScoresProcessor();
-        
+
+        private DetailObserver<string> _geo;
+        private DetailObserver<string> _dateRange;
         private DetailObserver<List<IReference>> _teams;
         private MutableDetailObserver<bool> _waitingForScores;
         private MutableDetailObserver<GameState> _gameState;
@@ -42,6 +44,12 @@ namespace GoogleTrends.GameManagers
 
         private void Start()
         {
+            _geo = new DetailObserver<string>() { DetailName = DetailNames.GeoLocation };
+            _geo.Initialize(_gameReference.Reference);
+            
+            _dateRange = new DetailObserver<string>() { DetailName = DetailNames.DateRange };
+            _dateRange.Initialize(_gameReference.Reference);
+             
             _teams = new DetailObserver<List<IReference>>() { DetailName = DetailNames.Teams };
             _teams.Initialize(_gameReference.Reference);
 
@@ -75,6 +83,8 @@ namespace GoogleTrends.GameManagers
 
         private void OnDestroy()
         {
+            _geo?.Dispose();
+            _dateRange?.Dispose();
             _teams?.Dispose();
             _gameState?.Dispose();
             _currentTerm?.Dispose();
@@ -147,11 +157,11 @@ namespace GoogleTrends.GameManagers
             var retriesRemaining = 3;
             _waitingForScores.Value = true;
 
-            yield return _scoresProcessor.SendTerms("today 12-m", "US", GetTermsToSend());
+            yield return _scoresProcessor.SendTerms(_dateRange.Value, _geo.Value, GetTermsToSend());
             while (!string.IsNullOrEmpty(_scoresProcessor.Error) && retriesRemaining > 0)
             {
                 retriesRemaining--;
-                yield return _scoresProcessor.SendTerms("today 12-m", "US", GetTermsToSend());
+                yield return _scoresProcessor.SendTerms(_dateRange.Value, _geo.Value, GetTermsToSend());
             }
 
             if (!string.IsNullOrEmpty(_scoresProcessor.Error))
@@ -280,7 +290,8 @@ namespace GoogleTrends.GameManagers
 
         private string CreateURL()
         {
-            var baseString = "https://trends.google.com/trends/explore?geo=US&q=";
+            var dateString = _dateRange.Value.Trim().Replace(" ", "%20");
+            var baseString = $"https://trends.google.com/trends/explore?date={dateString}&geo=US&q=";
             var terms = _teams.Value
                 .Select(t =>
                 {
@@ -322,7 +333,7 @@ namespace GoogleTrends.GameManagers
         private void SetPlaces()
         {
             var place = 0;
-            var teams = _teams.Value.OrderBy(t => t.GetDetail<int>(DetailNames.Score).GetValue());
+            var teams = _teams.Value.OrderByDescending(t => t.GetDetail<int>(DetailNames.Score).GetValue());
             foreach (var team in teams)
             {
                 team.GetMutable<int>(DetailNames.Place).SetValue(place++);

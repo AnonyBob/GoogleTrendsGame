@@ -53,7 +53,7 @@ MonoBehaviour:
       _type: 6
       _enumId: 20
       _value: 0
-      _stringValue: 12-m
+      _stringValue: today 12-m
       _referenceValue: {fileID: 0}
       _vectorValue: {x: 0, y: 0, z: 0, w: 0}
     - _name: GeoLocation
