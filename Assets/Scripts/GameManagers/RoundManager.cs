@@ -96,6 +96,11 @@ namespace GoogleTrends.GameManagers
         {
             Application.OpenURL(CreateURL());
         }
+
+        public void StartGame()
+        {
+            _gameState.Value = GameState.WaitForGameStart;
+        }
         
         public void NextRound()
         {
@@ -250,8 +255,9 @@ namespace GoogleTrends.GameManagers
             if (_gameTerms.Value.Count <= nextIndex)
             {
                 //End Game.
-                MainMenuManager.ReturnToMain();
-                //_gameState.Value = GameState.ShowGameResults;
+                
+                
+                _gameState.Value = GameState.ShowGameResults;
             }
             else
             {

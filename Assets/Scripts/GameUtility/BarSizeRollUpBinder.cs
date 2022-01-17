@@ -4,6 +4,7 @@ using OwlAndJackalope.UX.Runtime.DetailBinders;
 using OwlAndJackalope.UX.Runtime.Observers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace GoogleTrends.GameUtility
@@ -11,11 +12,13 @@ namespace GoogleTrends.GameUtility
     [RequireComponent(typeof(Image))]
     public class BarSizeRollUpBinder : BaseDetailBinder
     {
+        public bool pauseFill = false;
+        
         [SerializeField, DetailType(typeof(int))]
         private DetailObserver<int> _number;
 
-        [SerializeField]
-        private float _maxNumberSize = 100;
+        [SerializeField, FormerlySerializedAs("_maxNumberSize")]
+        public float maxNumberSize = 100;
         
         [SerializeField]
         private float _maxBarSize = 100;
@@ -65,7 +68,7 @@ namespace GoogleTrends.GameUtility
 
         private void Update()
         {
-            if (!_logic.AtTarget())
+            if (!_logic.AtTarget() && !pauseFill)
             {
                 SetSize(_logic.StepValueAsNumber(Time.deltaTime));
             }
@@ -73,7 +76,7 @@ namespace GoogleTrends.GameUtility
 
         private void SetSize(float currentNumber)
         {
-            var ratio = currentNumber / _maxNumberSize;
+            var ratio = currentNumber / maxNumberSize;
             if (ratio > 1 && _capBarSizeAtMax)
             {
                 ratio = 1;

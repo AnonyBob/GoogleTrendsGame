@@ -10,6 +10,8 @@ namespace GoogleTrends.GameUtility
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class IntegerRollUpBinder : BaseDetailBinder
     {
+        public bool pauseFill = false;
+        
         [SerializeField, DetailType(typeof(int))]
         private DetailObserver<int> _number;
 
@@ -52,7 +54,7 @@ namespace GoogleTrends.GameUtility
 
         private void Update()
         {
-            if (!_logic.AtTarget())
+            if (!_logic.AtTarget() && !pauseFill)
             {
                 var value = _logic.StepValue(Time.deltaTime);
                 if (value != _previousValue)
