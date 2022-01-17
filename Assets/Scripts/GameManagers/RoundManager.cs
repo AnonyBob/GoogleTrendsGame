@@ -9,6 +9,7 @@ using OwlAndJackalope.UX.Runtime.Data.Extensions;
 using OwlAndJackalope.UX.Runtime.Modules;
 using OwlAndJackalope.UX.Runtime.Observers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GoogleTrends.GameManagers
 {
@@ -19,6 +20,9 @@ namespace GoogleTrends.GameManagers
 
         [SerializeField]
         private float _bonusTermWaitTime;
+
+        [SerializeField]
+        private Button[] _nextButtons;
         
         private readonly ScoresProcessor _scoresProcessor = new ScoresProcessor();
         
@@ -108,6 +112,7 @@ namespace GoogleTrends.GameManagers
             }
             
             MoveToNextRoundOrEndGame();
+            SetNextButtonsInteractive(false);
         }
 
         public void StartTimer()
@@ -152,6 +157,7 @@ namespace GoogleTrends.GameManagers
             {
                 ShowResults();
                 yield return ApplyRoundBonuses();
+                SetNextButtonsInteractive(true);
             }
             
             _waitingForScores.Value = false;
@@ -202,6 +208,10 @@ namespace GoogleTrends.GameManagers
             {
                 yield return new WaitForSeconds(_bonusTermWaitTime);
             }
+            else
+            {
+                yield return new WaitForSeconds(_bonusTermWaitTime - 1);
+            }
             
             for (var i = 0; i < _teams.Value.Count; ++i)
             {
@@ -240,7 +250,8 @@ namespace GoogleTrends.GameManagers
             if (_gameTerms.Value.Count <= nextIndex)
             {
                 //End Game.
-                _gameState.Value = GameState.ShowGameResults;
+                MainMenuManager.ReturnToMain();
+                //_gameState.Value = GameState.ShowGameResults;
             }
             else
             {
@@ -295,6 +306,14 @@ namespace GoogleTrends.GameManagers
             team.GetMutable<int>(DetailNames.FinalRoundScore).SetValue(0);
         }
 
+        private void SetNextButtonsInteractive(bool interactive)
+        {
+            foreach (var button in _nextButtons)
+            {
+                button.interactable = interactive;
+            }
+        }
+        
         private IEnumerable<IDetail> ConstructEnteredTerm(IReference team)
         {
             yield return new BaseDetail<string>(DetailNames.TermText,
