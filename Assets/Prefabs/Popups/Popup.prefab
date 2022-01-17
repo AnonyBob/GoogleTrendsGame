@@ -616,6 +616,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6114424931277379294, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8248456220207261358, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -648,7 +652,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5861406357206348548, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aabf0292b60b102439acc2450bf886cd, type: 3}
 --- !u!224 &5796193451419631032 stripped
 RectTransform:
