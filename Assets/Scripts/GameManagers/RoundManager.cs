@@ -211,6 +211,12 @@ namespace GoogleTrends.GameManagers
                 if (_teams.Value != null && _teams.Value.Count > i)
                 {
                     var roundScore = _scoresProcessor.Results[i];
+                    var multiplier = _currentTerm.Value.GetDetail<int>(DetailNames.Multiplier).GetValue();
+                    if (multiplier > 1)
+                    {
+                        roundScore *= multiplier;
+                    }
+                    
                     //Set both here because we want to initialize the final round score before multiplying it.
                     _teams.Value[i].GetMutable<int>(DetailNames.RoundScore).SetValue(roundScore);
                     _teams.Value[i].GetMutable<int>(DetailNames.FinalRoundScore).SetValue(roundScore);
@@ -222,11 +228,10 @@ namespace GoogleTrends.GameManagers
 
         private IEnumerator ApplyRoundBonuses()
         {
-            var multiplier = _currentTerm.Value.GetDetail<int>(DetailNames.Multiplier).GetValue();
             var bonusTerm = _currentTerm.Value.GetDetail<string>(DetailNames.BonusTerm).GetValue();
             var bonusTermPoints = _currentTerm.Value.GetDetail<int>(DetailNames.BonusTermPoints).GetValue();
             
-            if (multiplier > 1 || !string.IsNullOrEmpty(bonusTerm))
+            if (!string.IsNullOrEmpty(bonusTerm))
             {
                 yield return new WaitForSeconds(_bonusTermWaitTime);
             }
@@ -239,12 +244,7 @@ namespace GoogleTrends.GameManagers
             {
                 var roundScoreDetail = _teams.Value[i].GetMutable<int>(DetailNames.RoundScore);
                 var roundScore = roundScoreDetail.GetValue();
-
-                if (multiplier > 1)
-                {
-                    roundScore = Mathf.RoundToInt(roundScore * multiplier);
-                }
-
+                
                 if (!string.IsNullOrEmpty(bonusTerm))
                 {
                     var currentTermText = _teams.Value[i].GetDetail<string>(DetailNames.CurrentTerm).GetValue();

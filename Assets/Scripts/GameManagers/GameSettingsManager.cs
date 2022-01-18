@@ -29,10 +29,10 @@ namespace GoogleTrends.GameManagers
         public void AddTerm()
         {
             Terms.Add(new BaseReference(
-                new BaseDetail<string>(DetailNames.TermText),
-                new BaseDetail<string>(DetailNames.BonusTerm),
-                new BaseDetail<int>(DetailNames.BonusTermPoints),
-                new BaseDetail<int>(DetailNames.Multiplier)));
+                new BaseDetail<string>(DetailNames.TermText, ""),
+                new BaseDetail<string>(DetailNames.BonusTerm, ""),
+                new BaseDetail<int>(DetailNames.BonusTermPoints, 0),
+                new BaseDetail<int>(DetailNames.Multiplier, 0)));
         }
 
         public void MoveTermUp()

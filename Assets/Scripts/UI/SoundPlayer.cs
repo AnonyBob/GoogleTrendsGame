@@ -1,4 +1,5 @@
-﻿using GoogleTrends.GameManagers;
+﻿using System;
+using GoogleTrends.GameManagers;
 using UnityEngine;
 
 namespace GoogleTrends.UI
@@ -10,11 +11,22 @@ namespace GoogleTrends.UI
 
         [SerializeField]
         private AudioClip[] _sounds;
+
+        [SerializeField]
+        private bool _playOnEnable = false;
         
         [SerializeField]
         private bool _oneShot = true;
 
         private AudioSource _source;
+
+        private void OnEnable()
+        {
+            if (_playOnEnable)
+            {
+                PlaySound();
+            }
+        }
 
         public void PlaySound()
         {

@@ -28,8 +28,12 @@ namespace GoogleTrends.Teams
             if (teams.Count < _maxTeams)
             {
                 var index = GetTeamsByColor().FindIndex(c => NotIncluded(c, teams));
-                var nextTeam = teams.Count % _teamTemplates.Length;
-                teams.Add(_teamTemplates[nextTeam].Reference.ConvertToReference());
+                if (index < 0)
+                {
+                    index = teams.Count % _teamTemplates.Length;    
+                }
+                
+                teams.Add(_teamTemplates[index].Reference.ConvertToReference());
             }
         }
 
