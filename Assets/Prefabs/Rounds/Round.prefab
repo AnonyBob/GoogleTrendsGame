@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 1140799880800580029}
   - component: {fileID: 1140799880800580030}
   - component: {fileID: 4535681849539216200}
+  - component: {fileID: 3956774748045547030}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -600,6 +601,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3956774748045547030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140799880800580016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cddaa005d284d8b9504988d2360c78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enabledSound: {fileID: 8300000, guid: d9603a57bd3a468489a0161e16b959a2, type: 3}
+  _disabledSound: {fileID: 0}
 --- !u!1 &1140799881352640498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,6 +2301,7 @@ GameObject:
   - component: {fileID: 883185845110165976}
   - component: {fileID: 175447663644133458}
   - component: {fileID: 8487268222900450571}
+  - component: {fileID: 4634183007115023290}
   m_Layer: 5
   m_Name: DeleteButton
   m_TagString: Untagged
@@ -2407,6 +2423,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4634183007115023290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432550338753744920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cddaa005d284d8b9504988d2360c78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enabledSound: {fileID: 8300000, guid: 4f6860b203a070b419847c9ddb260ef3, type: 3}
+  _disabledSound: {fileID: 0}
 --- !u!1 &4660991220922241516
 GameObject:
   m_ObjectHideFlags: 0

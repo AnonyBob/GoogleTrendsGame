@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 4305913361941975738}
   - component: {fileID: 7041789318696608092}
   - component: {fileID: 7496274608792596434}
+  - component: {fileID: 4579229723048532600}
   m_Layer: 5
   m_Name: BlueButton
   m_TagString: Untagged
@@ -276,3 +277,17 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4579229723048532600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6491727955005692158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cddaa005d284d8b9504988d2360c78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enabledSound: {fileID: 8300000, guid: d9603a57bd3a468489a0161e16b959a2, type: 3}
+  _disabledSound: {fileID: 0}

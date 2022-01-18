@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.92156863
       objectReference: {fileID: 0}
+    - target: {fileID: 4579229723048532600, guid: b4a9b9fb0eff5204eb108895c85472c6, type: 3}
+      propertyPath: _enabledSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f6860b203a070b419847c9ddb260ef3, type: 3}
     - target: {fileID: 6491727955005692158, guid: b4a9b9fb0eff5204eb108895c85472c6, type: 3}
       propertyPath: m_Name
       value: RedButton

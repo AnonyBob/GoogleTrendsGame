@@ -2005,6 +2005,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuButton
       objectReference: {fileID: 0}
+    - target: {fileID: 6535415404888048486, guid: e6a5918f95f6bf8478022ab52ef53671, type: 3}
+      propertyPath: _enabledSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9603a57bd3a468489a0161e16b959a2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6a5918f95f6bf8478022ab52ef53671, type: 3}
 --- !u!1 &4431925278999399347 stripped

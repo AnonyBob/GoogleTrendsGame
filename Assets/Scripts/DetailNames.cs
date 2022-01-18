@@ -22,6 +22,7 @@
         public const string GotBonusTerm = "GotBonusTerm";
         public const string ShowCurrentTerm = "ShowCurrentTerm";
         public const string Place = "Place";
+        public const string Color = "Color";
         
         //Round Related Details
         public const string Timer = "Timer";

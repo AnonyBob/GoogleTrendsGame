@@ -1,4 +1,5 @@
-﻿using GoogleTrends.GameUtility;
+﻿using GoogleTrends.GameManagers;
+using GoogleTrends.GameUtility;
 using OwlAndJackalope.UX.Runtime.Modules;
 using UnityEngine;
 
@@ -17,6 +18,15 @@ namespace GoogleTrends.Teams
         [SerializeField]
         private Animation _placeAnimation;
 
+        [SerializeField]
+        private AudioClip _firstPlace;
+
+        [SerializeField]
+        private AudioClip _secondPlace;
+
+        [SerializeField]
+        private AudioClip _otherPlace;
+
         public void SetMaxScore(int maxScore)
         {
             _barRollUp.maxNumberSize = maxScore;
@@ -26,6 +36,20 @@ namespace GoogleTrends.Teams
         {
             _barRollUp.pauseFill = false;
             _rollUp.pauseFill = false;
+
+            var place = Place;
+            if (place == 0)
+            {
+                SoundManager.PlaySound(_firstPlace);
+            }
+            else if (place <= 2)
+            {
+                SoundManager.PlaySound(_secondPlace);
+            }
+            else
+            {
+                
+            }
         }
 
         public void ShowPlace()

@@ -22,6 +22,9 @@ namespace GoogleTrends.GameManagers
         private float _bonusTermWaitTime;
 
         [SerializeField]
+        private AudioClip _timerTickSound;
+        
+        [SerializeField]
         private Button[] _nextButtons;
         
         private readonly ScoresProcessor _scoresProcessor = new ScoresProcessor();
@@ -184,6 +187,10 @@ namespace GoogleTrends.GameManagers
             {
                 yield return new WaitForSeconds(1);
                 _timer.Value--;
+                if (_timer.Value <= 5 && _timer.Value > 0)
+                {
+                    SoundManager.PlaySound(_timerTickSound);
+                }
             }
 
             _timerRoutine = null;
