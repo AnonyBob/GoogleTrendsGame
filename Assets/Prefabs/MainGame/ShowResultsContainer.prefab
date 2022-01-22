@@ -5121,6 +5121,7 @@ GameObject:
   - component: {fileID: 1225715957}
   - component: {fileID: 1225715958}
   - component: {fileID: 1225715959}
+  - component: {fileID: 3193913085745508362}
   m_Layer: 5
   m_Name: BonusTermReveal
   m_TagString: Untagged
@@ -5177,6 +5178,22 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &3193913085745508362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225715956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df2bc9a097540df84b3f2a0732319d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sound: {fileID: 8300000, guid: 61ec81bfcb921e941b3948ff29f33037, type: 3}
+  _sounds: []
+  _playOnEnable: 0
+  _oneShot: 1
 --- !u!1 &385040094488098089
 GameObject:
   m_ObjectHideFlags: 0
