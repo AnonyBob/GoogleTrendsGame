@@ -26,6 +26,9 @@ namespace GoogleTrends.GameManagers
         
         [SerializeField]
         private Button[] _nextButtons;
+
+        [SerializeField]
+        private RoundBonusesApplier _bonusApplier;
         
         private readonly ScoresProcessor _scoresProcessor = new ScoresProcessor();
 
@@ -174,7 +177,11 @@ namespace GoogleTrends.GameManagers
             else
             {
                 ShowResults();
-                yield return ApplyRoundBonuses();
+                var task = _bonusApplier.StartApplyRoundBonuses(_teams.Value, _currentTerm.Value);
+                while (!task.IsCompleted)
+                {
+                    yield return null;
+                }
                 SetNextButtonsInteractive(true);
             }
             
@@ -211,11 +218,6 @@ namespace GoogleTrends.GameManagers
                 if (_teams.Value != null && _teams.Value.Count > i)
                 {
                     var roundScore = _scoresProcessor.Results[i];
-                    var multiplier = _currentTerm.Value.GetDetail<int>(DetailNames.Multiplier).GetValue();
-                    if (multiplier > 1)
-                    {
-                        roundScore *= multiplier;
-                    }
                     
                     //Set both here because we want to initialize the final round score before multiplying it.
                     _teams.Value[i].GetMutable<int>(DetailNames.RoundScore).SetValue(roundScore);
@@ -225,50 +227,13 @@ namespace GoogleTrends.GameManagers
 
             _gameState.Value = GameState.ShowRoundResults;
         }
-
-        private IEnumerator ApplyRoundBonuses()
-        {
-            var bonusTerm = _currentTerm.Value.GetDetail<string>(DetailNames.BonusTerm).GetValue();
-            var bonusTermPoints = _currentTerm.Value.GetDetail<int>(DetailNames.BonusTermPoints).GetValue();
-            
-            if (!string.IsNullOrEmpty(bonusTerm))
-            {
-                yield return new WaitForSeconds(_bonusTermWaitTime);
-            }
-            else
-            {
-                yield return new WaitForSeconds(_bonusTermWaitTime - 1);
-            }
-            
-            for (var i = 0; i < _teams.Value.Count; ++i)
-            {
-                var roundScoreDetail = _teams.Value[i].GetMutable<int>(DetailNames.RoundScore);
-                var roundScore = roundScoreDetail.GetValue();
-                
-                if (!string.IsNullOrEmpty(bonusTerm))
-                {
-                    var currentTermText = _teams.Value[i].GetDetail<string>(DetailNames.CurrentTerm).GetValue();
-                    if (currentTermText.ToLower().Contains(bonusTerm.ToLower()))
-                    {
-                        roundScore += bonusTermPoints;
-                        _teams.Value[i].GetMutable<bool>(DetailNames.GotBonusTerm).SetValue(true);
-                        
-                        //If the score was less than 100, we want to further grow the bar to max.
-                        if (roundScoreDetail.GetValue() < 100)
-                        {
-                            roundScoreDetail.SetValue(100);
-                        }
-                    }
-                }
-
-                _teams.Value[i].GetMutable<int>(DetailNames.FinalRoundScore).SetValue(roundScore);
-            }
-        }
-
+        
         private void MoveToNextRoundOrEndGame()
         {
             var nextIndex = _roundNumber.Value;
             _roundNumber.Value++;
+            
+            _bonusApplier.ResetBonusReveal();
             if (_gameTerms.Value.Count <= nextIndex)
             {
                 //End Game.
