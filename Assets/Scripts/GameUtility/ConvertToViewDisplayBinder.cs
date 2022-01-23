@@ -25,7 +25,7 @@ namespace GoogleTrends.GameUtility
         private void HandleChange()
         {
             var optionIndex = _options.GetIndex(_value.Value);
-            if (optionIndex > 0)
+            if (optionIndex >= 0)
             {
                 _text.text = _options.GetDisplayValueFromIndex(optionIndex);
             }

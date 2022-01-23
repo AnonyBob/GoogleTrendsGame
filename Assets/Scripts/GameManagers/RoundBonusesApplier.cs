@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using GoogleTrends.Teams;
 using OwlAndJackalope.UX.Runtime.Data;
@@ -15,6 +16,8 @@ namespace GoogleTrends.GameManagers
         public float multiplierAnimationWait = 1.3f;
 
         public float waitBetweenBonuses = 1.5f;
+
+        public float waitBeforeBonusReveal = 1.5f;
         
         public float waitAfterBonusReveal = 2f;
 
@@ -40,21 +43,22 @@ namespace GoogleTrends.GameManagers
 
                 await Task.Delay(TimeSpan.FromSeconds(waitBetweenBonuses));
             }
-
+            
             var bonusTerm = currentTerm.GetValue<string>(DetailNames.BonusTerm);
             var bonusPoints = currentTerm.GetValue<int>(DetailNames.BonusTermPoints);
 
             if (!string.IsNullOrEmpty(bonusTerm) && bonusPoints > 0)
             {
                 bonusTerm = bonusTerm.ToLower();
-                
+
+                await Task.Delay(TimeSpan.FromSeconds(waitBeforeBonusReveal));
                 bonuseRevealObject.Play();
                 await Task.Delay(TimeSpan.FromSeconds(waitAfterBonusReveal));
                 
                 foreach (var team in teams)
                 {
                     var teamTerm = team.GetValue<string>(DetailNames.CurrentTerm);
-                    if (teamTerm.ToLower().Contains(bonusTerm))
+                    if (ContainsBonus(teamTerm, bonusTerm))
                     {
                         await PlayBonusAnimations(team, bonusPoints);
                         var roundScore = team.GetMutable<int>(DetailNames.FinalRoundScore);
@@ -75,6 +79,17 @@ namespace GoogleTrends.GameManagers
         public void ResetBonusReveal()
         {
             bonuseRevealObject.GetComponent<CanvasGroup>().alpha = 0;
+        }
+
+        private bool ContainsBonus(string teamTerm, string bonusTerm)
+        {
+            if (string.IsNullOrEmpty(teamTerm))
+            {
+                return false;
+            }
+            
+            var regex = new Regex($"\b{bonusTerm}\b");
+            return regex.IsMatch(teamTerm.ToLower());
         }
 
         private async Task PlayMultiplierAnimations(int multiplier)

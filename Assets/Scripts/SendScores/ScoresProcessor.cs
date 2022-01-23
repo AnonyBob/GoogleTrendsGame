@@ -78,18 +78,11 @@ namespace GoogleTrends.SendScores
 
         private void ConstructResults(StreamReader outputReader)
         {
-            string lastLine = null;
-            var regex = new Regex(@"\S+");
-            
             while (!outputReader.EndOfStream)
             {
-                lastLine = outputReader.ReadLine();
-            }
-
-            var matches = regex.Matches(lastLine);
-            for (var i = 1; i < matches.Count; ++i)
-            {
-                if (int.TryParse(matches[i].Value, out var value))
+                var line = outputReader.ReadLine();
+                var number = line.Split('-')[1].Trim();
+                if (int.TryParse(number, out var value))
                 {
                     _results.Add(value);
                 }
