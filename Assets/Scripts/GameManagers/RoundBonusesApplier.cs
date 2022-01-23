@@ -88,7 +88,7 @@ namespace GoogleTrends.GameManagers
                 return false;
             }
             
-            var regex = new Regex($"\b{bonusTerm}\b");
+            var regex = new Regex($"\\b{bonusTerm}\\b");
             return regex.IsMatch(teamTerm.ToLower());
         }
 

@@ -41,6 +41,7 @@ namespace GoogleTrends.GameManagers
         private MutableDetailObserver<IReference> _currentTerm;
         private DetailObserver<List<IReference>> _gameTerms;
         private DetailObserver<bool> _setTeamNamesOnFirstRound;
+        private DetailObserver<bool> _firstRoundWorthPoints;
 
         private MutableDetailObserver<int> _timer;
         private MutableDetailObserver<bool> _waitingForTimer;
@@ -76,6 +77,9 @@ namespace GoogleTrends.GameManagers
             
             _setTeamNamesOnFirstRound = new DetailObserver<bool>() { DetailName = DetailNames.SetTeamNamesOnFirstRound };
             _setTeamNamesOnFirstRound.Initialize(_gameReference.Reference);
+            
+            _firstRoundWorthPoints = new DetailObserver<bool>() { DetailName = DetailNames.FirstRoundWorthPoints };
+            _firstRoundWorthPoints.Initialize(_gameReference.Reference);
 
             _timer = new MutableDetailObserver<int>() { DetailName = DetailNames.Timer };
             _timer.Initialize(_gameReference.Reference);
@@ -98,6 +102,7 @@ namespace GoogleTrends.GameManagers
             _roundNumber?.Dispose();
             _waitingForScores?.Dispose();
             _setTeamNamesOnFirstRound?.Dispose();
+            _firstRoundWorthPoints?.Dispose();
             _timer?.Dispose();
             _waitingForTimer?.Dispose();
             _timerMax?.Dispose();
@@ -128,7 +133,7 @@ namespace GoogleTrends.GameManagers
                     SetTeamName(team, currentTerm);    
                 }
                 
-                UpdateScores(team);
+                UpdateScores(team, _roundNumber.Value > 1 || _firstRoundWorthPoints.Value);
                 ClearTerms(team);
             }
             
@@ -274,12 +279,15 @@ namespace GoogleTrends.GameManagers
             return baseString + string.Join(",", terms);
         }
 
-        private void UpdateScores(IReference team)
+        private void UpdateScores(IReference team, bool setScores)
         {
-            var score = team.GetMutable<int>(DetailNames.Score);
             var roundScore = team.GetMutable<int>(DetailNames.FinalRoundScore);
-
-            score.SetValue(score.GetValue() + roundScore.GetValue());
+            if (setScores)
+            {
+                var score = team.GetMutable<int>(DetailNames.Score);
+                score.SetValue(score.GetValue() + roundScore.GetValue());
+            }
+            
             roundScore.SetValue(0);
         }
 

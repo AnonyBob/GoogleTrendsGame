@@ -67,6 +67,7 @@ namespace GoogleTrends.Terms
                 yield return _sourceModule.Reference.GetDetail<string>(DetailNames.DateRange);
                 yield return _sourceModule.Reference.GetDetail<string>(DetailNames.GeoLocation);
                 yield return _sourceModule.Reference.GetDetail<bool>(DetailNames.SetTeamNamesOnFirstRound);
+                yield return _sourceModule.Reference.GetDetail<bool>(DetailNames.FirstRoundWorthPoints);
             }
         }
     }

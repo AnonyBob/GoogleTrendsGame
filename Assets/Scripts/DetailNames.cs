@@ -12,6 +12,7 @@
         public const string DateRange = "DateRange";
         public const string GeoLocation = "GeoLocation";
         public const string SetTeamNamesOnFirstRound = "SetTeamNamesOnFirstRound";
+        public const string FirstRoundWorthPoints = "FirstRoundWorthPoints";
         
         //Team Related Details
         public const string Name = "Name";
