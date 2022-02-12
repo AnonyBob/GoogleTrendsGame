@@ -83,6 +83,8 @@ namespace GoogleTrends.GameUtility
             }
             
             var finalSize = ratio * _maxBarSize;
+            var sign = Mathf.Sign(finalSize);
+            finalSize = Mathf.Abs(finalSize);
             
             var size = _image.rectTransform.sizeDelta;
             if (_useHorizontal)
@@ -94,6 +96,7 @@ namespace GoogleTrends.GameUtility
                 size.y = finalSize;
             }
 
+            _image.rectTransform.rotation = Quaternion.Euler(0, 0, sign < 0 ? 180 : 0);
             _image.rectTransform.sizeDelta = size;
         }
 
